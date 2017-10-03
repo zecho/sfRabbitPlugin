@@ -4,11 +4,15 @@ require_once(dirname(__FILE__) . '/BaseConsumer.php');
 
 class Consumer extends BaseConsumer {
 
+    protected $target = 5;
+
+    protected $consumed = 0;
+
 	public function consume($msgAmount) {
 		$this->target = $msgAmount;
 
 		$this->setUpConsumer();
-		
+
 		while (count($this->ch->callbacks)) {
 			$this->ch->wait();
 		}
