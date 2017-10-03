@@ -34,7 +34,6 @@ EOF;
 			try {
 				$consumer = sfRabbit::getConsumer($arguments['name']);
 				$consumer->consume($m);
-				break;
 			} catch (Exception $e) {
 				if (!empty($consumer) and get_class($consumer) == 'Consumer' and $m != -1) {
 					$m = $m - $consumer->getConsumed();
