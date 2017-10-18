@@ -1,0 +1,8 @@
+{
+    "name": "fsm/sf-rabbit-plugin",
+    "description": "Backport of videlalvaro's symfony2 RabbitMqBundle",
+    "type": "symfony1-plugin",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
