@@ -8,7 +8,7 @@ class rabbitmqConsumerTask extends sfBaseTask {
 		));
 
 		$this->addOptions(array(
-			new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
+			new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'backend'),
 			new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
 			new sfCommandOption('messages', 'm', sfCommandOption::PARAMETER_OPTIONAL, 'Number of messages to consume', 1),
 			new sfCommandOption('reconnect_period', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'If connection fails retry after n second', 10),
@@ -27,6 +27,10 @@ EOF;
 
 	protected function execute($arguments = array(), $options = array()) {
 		define('AMQP_DEBUG', (bool) sfConfig::get('app_sfRabbitPlugin_debug', 0));
+
+        // initialize the database connection
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $this->connection = $databaseManager->getDatabase('propel')->getConnection();
 
 		$m = $options['messages'];
 
